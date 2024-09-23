@@ -1,5 +1,4 @@
 REGIONS = [
-  'us',
   'ca',
   'gb',
   'au',
