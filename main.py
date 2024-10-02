@@ -3,6 +3,7 @@ import time
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import random
 
 import constants
 import utils
@@ -14,8 +15,8 @@ def setup_driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--log-level=3")
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    options.add_argument("--user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data")
-    options.add_argument('--profile-directory=Profile 4')
+    options.add_argument("--user-data-dir=C:\\Users\\ff\\AppData\\Local\\Google\\Chrome\\User Data")
+    options.add_argument('--profile-directory=Profile 13')
     
     return webdriver.Chrome(options=options)
 
@@ -30,9 +31,10 @@ def load_podcast_data_for_region(driver, region_code):
     for i in range(num_pages):
         try:
             # Load page
-            url = f"https://www.listennotes.com/best-podcasts/?page={i + 1}&sort_type=listen_score&region={region_code}"
+            url = f"https://www.listennotes.com/best-podcasts/?page={i+1}&sort_type=listen_score&region={region_code}"
+            # time.sleep(random.uniform(10, 15))
             driver.get(url)
-            time.sleep(2)
+            time.sleep(random.uniform(5, 15))
             print(f'{region_code} - page {i + 1} loaded successfully')
 
             # Find podcast cards (10 cards per page)
@@ -84,7 +86,7 @@ def main():
     try:
         for region_code in constants.REGIONS:
             load_podcast_data_for_region(driver, region_code)  # Load data first
-            update_hosts_in_json(driver, region_code)  # Update hosts after loading data
+            # update_hosts_in_json(driver, region_code)  # Update hosts after loading data
 
     finally:
         driver.quit()

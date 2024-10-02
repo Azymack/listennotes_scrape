@@ -11,7 +11,8 @@ def get_initial_info(card_div):
         tag_div_arr = card_div.find_elements(By.CSS_SELECTOR, ".flex.items-center .flex-none div")
         by_div = card_div.find_element(By.CSS_SELECTOR, "a.ml-1.text-black.inline")
         contact_div = card_div.find_element(By.CSS_SELECTOR, ".flex.items-center.mt-2")
-        email = contact_div.find_elements(By.TAG_NAME, "a")[3].get_attribute("href")
+        email_div_arr = contact_div.find_elements(By.TAG_NAME, "a")
+        email = email_div_arr[len(email_div_arr) - 1].get_attribute("href")
         # Get the title text and URL
         title_text = title_div.text
         title_url = title_div.find_element(By.TAG_NAME, "a").get_attribute("href")
